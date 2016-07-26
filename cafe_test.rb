@@ -45,8 +45,13 @@ Se vai botar açucar então foda-se faz aí de qualquer jeito mesmo.
       "__|__",
       "👉👌"
     ]
-
     assert xingamentos.include? @cafe.handle("🖕")
     assert xingamentos.include? @cafe.handle(":middle_finger:")
+  end
+
+  def test_whitelist
+    %w(object_id handle non_existing).each do |message|
+      assert_raises(StandardError) { @cafe.handle(message) }
+    end
   end
 end

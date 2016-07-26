@@ -1,6 +1,12 @@
 class Cafe
+  def self.handles?(action)
+    (public_instance_methods - Object.public_methods).include?(action.to_sym)
+  end
+
   def handle(action)
-    send(action)
+    fail unless self.class.handles?(action)
+
+    public_send(action)
   end
 
   def fiz
